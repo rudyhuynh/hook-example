@@ -32,8 +32,8 @@ function todosReducer(todos: TodosType, action: ActionType) {
 
 export const TodoListApp = () => {
   const [todos, dispatch] = useReducer(todosReducer, initialTodos);
-
   const [filter, setFilter] = useState("all");
+  const [darkMode, setDarkMode] = useState(false);
 
   const onClickAdd = () => {
     const id = Math.random();
@@ -60,11 +60,19 @@ export const TodoListApp = () => {
   });
 
   return (
-    <div className="todo-list-app">
-      <h1>Todo List</h1>
+    <div
+      className="todo-list-app"
+      style={{ backgroundColor: darkMode ? "black" : "white" }}
+    >
+      <h1 style={{ color: darkMode ? "white" : "black" }}>Todo List</h1>
       <div className="toolbox">
         <TodoFilter filter={filter} onClickFilter={onClickFilter} />
-        <button className="btn dark-theme-btn">
+        <button
+          className="btn dark-theme-btn"
+          title="Dark Mode"
+          onClick={() => setDarkMode(!darkMode)}
+          style={{ color: darkMode ? "black" : "white" }}
+        >
           <i className="material-icons">brightness_7</i>
         </button>
       </div>

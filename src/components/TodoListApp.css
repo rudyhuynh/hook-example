@@ -5,6 +5,7 @@ h1 {
 .todo-list-app {
   width: 100vw;
   height: 100vh;
+  padding-top: 20px;
 }
 .toolbox,
 .todo-list,
