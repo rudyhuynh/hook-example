@@ -1,38 +1,52 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import { TodoFilter } from "./TodoFilter";
-import type { TodosType } from "./typedefs";
+import type { ActionType, TodosType } from "./typedefs";
 import { TodoList } from "./TodoList";
 
-import "./TodoApp.css";
+import "./TodoListApp.css";
 
 let i = 0;
 
+const initialTodos: TodosType = [];
+function todosReducer(todos: TodosType, action: ActionType) {
+  switch (action.type) {
+    case "add_todo":
+      return [
+        ...todos,
+        {
+          id: action.id,
+          content: action.content,
+          isDone: false,
+        },
+      ];
+    case "set_done_undone":
+      return todos.map((todo) => ({
+        ...todo,
+        isDone: todo.id === action.id ? !todo.isDone : todo.isDone,
+      }));
+    case "delete_todo":
+      return todos.filter((todo) => todo.id !== action.id);
+  }
+  return todos;
+}
+
 export const TodoListApp = () => {
-  const [todos, setTodos] = useState<TodosType>([]);
+  const [todos, dispatch] = useReducer(todosReducer, initialTodos);
+
   const [filter, setFilter] = useState("all");
 
   const onClickAdd = () => {
-    setTodos([
-      ...todos,
-      {
-        id: Math.random(),
-        content: "New Todo " + i++,
-        isDone: false,
-      },
-    ]);
+    const id = Math.random();
+    const content = "New Todo " + i++;
+    dispatch({ type: "add_todo", id, content });
   };
 
   const onClickDoneUndone = (id: number) => {
-    setTodos(
-      todos.map((todo) => ({
-        ...todo,
-        isDone: todo.id === id ? !todo.isDone : todo.isDone,
-      }))
-    );
+    dispatch({ type: "set_done_undone", id });
   };
 
   const onClickDelete = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    dispatch({ type: "delete_todo", id });
   };
 
   const onClickFilter = (filter: string) => {
@@ -46,15 +60,21 @@ export const TodoListApp = () => {
   });
 
   return (
-    <div>
+    <div className="todo-list-app">
       <h1>Todo List</h1>
-      <TodoFilter filter={filter} onClickFilter={onClickFilter} />
+      <div className="toolbox">
+        <TodoFilter filter={filter} onClickFilter={onClickFilter} />
+        <button className="btn dark-theme-btn">
+          <i className="material-icons">brightness_7</i>
+        </button>
+      </div>
+
       <TodoList
         todos={filteredTodo}
         onClickDoneUndone={onClickDoneUndone}
         onClickDelete={onClickDelete}
       />
-      <div>
+      <div className="todo-add">
         <button className="btn full-width" onClick={onClickAdd}>
           Add
         </button>

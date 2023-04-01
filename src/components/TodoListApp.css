@@ -1,0 +1,41 @@
+h1 {
+  text-align: center;
+}
+
+.todo-list-app {
+  width: 100vw;
+  height: 100vh;
+}
+.toolbox,
+.todo-list,
+.todo-add {
+  width: 60vw;
+}
+
+.toolbox {
+  margin: 0 auto;
+  text-align: center;
+}
+.todo-list {
+  height: 50vh;
+  margin: 10px auto !important;
+  overflow: scroll !important;
+}
+
+.todo-add {
+  margin: 20px auto;
+}
+
+.toolbox {
+  position: relative;
+}
+
+.dark-theme-btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.text-center {
+  text-align: center;
+}
