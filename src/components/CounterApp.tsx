@@ -1,19 +1,10 @@
-import { useReducer } from "react";
-
-const initialState = 0;
-function reducer(state: number, action: { type: string; [any: string]: any }) {
-  switch (action.type) {
-    case "set_count":
-      return state + 1;
-  }
-  return state;
-}
+import { useState } from "react";
 
 export const CounterApp = () => {
-  const [count, dispatch] = useReducer(reducer, initialState);
+  const [count, setCount] = useState(0);
 
   const onClick = () => {
-    dispatch({ type: "set_count" });
+    setCount(count + 1);
   };
 
   return (
