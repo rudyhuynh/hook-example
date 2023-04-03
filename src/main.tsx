@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { TodoListApp } from "./components/TodoListApp";
 import { CounterApp } from "./components/CounterApp";
+import { Clock } from "./components/Clock";
 
 import "./index.css";
 import "materialize-css/dist/css/materialize.css";
@@ -17,6 +18,11 @@ const routes = [
     path: "/todo-app",
     title: TodoListApp.name,
     element: <TodoListApp />,
+  },
+  {
+    path: "/clock",
+    title: Clock.name,
+    element: <Clock />,
   },
 ];
 
