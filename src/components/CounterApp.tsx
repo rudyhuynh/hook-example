@@ -1,19 +1,18 @@
-import { useReducer } from "react";
+import { useState, useEffect, useMemo } from "react";
 
-const initialState = 0;
-function reducer(state: number, action: { type: string; [any: string]: any }) {
-  switch (action.type) {
-    case "set_count":
-      return state + 1;
-  }
-  return state;
-}
+export const CounterApp = ({ query }: any) => {
+  const [count, setCount] = useState(0);
 
-export const CounterApp = () => {
-  const [count, dispatch] = useReducer(reducer, initialState);
+  const memoQuery = useMemo(() => {
+    return query;
+  }, [window.location.search]);
+
+  useEffect(() => {
+    console.log("effect run");
+  }, [memoQuery]);
 
   const onClick = () => {
-    dispatch({ type: "set_count" });
+    setCount(count + 1);
   };
 
   return (

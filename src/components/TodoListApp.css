@@ -40,3 +40,18 @@ h1 {
 .text-center {
   text-align: center;
 }
+
+.todo-item {
+  display: flex;
+  flex-direction: row;
+}
+
+.todo-text {
+  flex: 1;
+  line-height: 32px;
+  padding-right: 10px;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
