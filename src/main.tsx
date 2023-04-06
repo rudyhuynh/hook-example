@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { TodoListApp } from "./components/TodoListApp";
 import { CounterApp } from "./components/CounterApp";
 import { Clock } from "./components/Clock";
+import { StopWatch } from "./components/StopWatch";
 
 import "./index.css";
 import "materialize-css/dist/css/materialize.css";
@@ -23,6 +24,11 @@ const routes = [
     path: "/clock",
     title: Clock.name,
     element: <Clock />,
+  },
+  {
+    path: "/stop-watch",
+    title: StopWatch.name,
+    element: <StopWatch />,
   },
 ];
 
