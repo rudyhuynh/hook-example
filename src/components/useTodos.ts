@@ -4,6 +4,16 @@ import type { ActionType, TodosType } from "./typedefs";
 const initialTodos: TodosType = [
   { id: Math.random(), content: "Todo 0", isDone: false },
   { id: Math.random(), content: "Todo 1", isDone: true },
+  { id: Math.random(), content: "Todo 2", isDone: true },
+  { id: Math.random(), content: "Todo 3", isDone: true },
+  { id: Math.random(), content: "Todo 4", isDone: true },
+  { id: Math.random(), content: "Todo 5", isDone: false },
+  { id: Math.random(), content: "Todo 6", isDone: false },
+  { id: Math.random(), content: "Todo 7", isDone: false },
+  { id: Math.random(), content: "Todo 8", isDone: false },
+  { id: Math.random(), content: "Todo 9", isDone: false },
+  { id: Math.random(), content: "Todo 10", isDone: false },
+  { id: Math.random(), content: "Todo 11", isDone: false },
 ];
 
 function todosReducer(todos: TodosType, action: ActionType) {

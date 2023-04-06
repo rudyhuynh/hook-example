@@ -1,0 +1,13 @@
+.stop-watch {
+  width: 50vw;
+  padding-top: 100px;
+  margin: auto;
+}
+
+.stop-watch h5 {
+  padding-left: 20px;
+}
+
+.stop-watch .buttons {
+  text-align: center;
+}

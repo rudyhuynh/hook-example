@@ -1,7 +1,6 @@
 import { memo } from "react";
 import type { TodosType } from "./typedefs";
 import { TodoItem } from "./TodoItem";
-import { slowLogic } from "../utils/slowLogic";
 
 type TodoListProps = {
   todos: TodosType;

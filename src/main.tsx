@@ -35,7 +35,7 @@ const routes = [
 const mainPageRoute = {
   path: "/",
   element: (
-    <div>
+    <div className="routes">
       <ul>
         {routes.map((route) => (
           <li key={route.path}>

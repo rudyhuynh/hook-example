@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./StopWatch.css";
 
 export const StopWatch = () => {
   const [time, setTime] = useState(0);
@@ -17,14 +18,16 @@ export const StopWatch = () => {
   const timeString = new Date(time).toISOString().split("T")[1].slice(0, 12);
 
   return (
-    <div>
-      <h5 style={{ textAlign: "left" }}>{timeString}</h5>
-      <button className="btn-large" onClick={onClickStart}>
-        Start
-      </button>{" "}
-      <button className="btn-large" onClick={onClickStop}>
-        Stop
-      </button>
+    <div className="stop-watch">
+      <h5>{timeString}</h5>
+      <div className="buttons">
+        <button className="btn-large" onClick={onClickStart}>
+          Start
+        </button>{" "}
+        <button className="btn-large" onClick={onClickStop}>
+          Stop
+        </button>
+      </div>
     </div>
   );
 };

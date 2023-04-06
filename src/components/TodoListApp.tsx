@@ -7,13 +7,11 @@ import "./TodoListApp.css";
 import { TodosType } from "./typedefs";
 
 function filterTodos(todos: TodosType, filter: string) {
-  console.time("filterTodos");
   const results = todos.filter((todo) => {
     if (filter === "all") return true;
     if (filter === "done") return todo.isDone;
     if (filter === "undone") return !todo.isDone;
   });
-  console.timeEnd("filterTodos");
   return results;
 }
 
