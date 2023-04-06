@@ -23,7 +23,6 @@ a.active {
 }
 
 .routes {
-  border: 1px dashed red;
   display: flex;
   justify-content: center;
   text-align: center;

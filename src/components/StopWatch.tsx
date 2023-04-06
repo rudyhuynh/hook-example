@@ -7,7 +7,8 @@ export const StopWatch = () => {
   const onClickStart = () => {
     let startAt = Date.now();
     window.setInterval(() => {
-      setTime(time + Date.now() - startAt);
+      const duration = Date.now() - startAt;
+      setTime(time + duration);
     }, 10);
   };
 

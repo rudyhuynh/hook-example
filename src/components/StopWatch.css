@@ -10,4 +10,5 @@
 
 .stop-watch .buttons {
   text-align: center;
+  white-space: nowrap;
 }
