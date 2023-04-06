@@ -1,64 +1,60 @@
 import { useState } from "react";
 import { TodoFilter } from "./TodoFilter";
-import type { TodosType } from "./typedefs";
 import { TodoList } from "./TodoList";
+import { useTodos } from "./useTodos";
 
-import "./TodoApp.css";
+import "./TodoListApp.css";
+import { TodosType } from "./typedefs";
 
-let i = 0;
-
-export const TodoListApp = () => {
-  const [todos, setTodos] = useState<TodosType>([]);
-  const [filter, setFilter] = useState("all");
-
-  const onClickAdd = () => {
-    setTodos([
-      ...todos,
-      {
-        id: Math.random(),
-        content: "New Todo " + i++,
-        isDone: false,
-      },
-    ]);
-  };
-
-  const onClickDoneUndone = (id: number) => {
-    setTodos(
-      todos.map((todo) => ({
-        ...todo,
-        isDone: todo.id === id ? !todo.isDone : todo.isDone,
-      }))
-    );
-  };
-
-  const onClickDelete = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-  const onClickFilter = (filter: string) => {
-    setFilter(filter);
-  };
-
-  const filteredTodo = todos.filter((todo) => {
+function filterTodos(todos: TodosType, filter: string) {
+  console.time("filterTodos");
+  const results = todos.filter((todo) => {
     if (filter === "all") return true;
     if (filter === "done") return todo.isDone;
     if (filter === "undone") return !todo.isDone;
   });
+  console.timeEnd("filterTodos");
+  return results;
+}
+
+export const TodoListApp = () => {
+  const [todos, dispatch] = useTodos();
+  const [filter, setFilter] = useState("all");
+  const [newContent, setNewContent] = useState("");
+
+  const filteredTodo = filterTodos(todos, filter);
 
   return (
-    <div>
+    <div className="todo-list-app">
       <h1>Todo List</h1>
-      <TodoFilter filter={filter} onClickFilter={onClickFilter} />
+      <TodoFilter filter={filter} onClickFilter={setFilter} />
       <TodoList
         todos={filteredTodo}
-        onClickDoneUndone={onClickDoneUndone}
-        onClickDelete={onClickDelete}
+        onClickDoneUndone={(id: number) =>
+          dispatch({ type: "set_done_undone", id })
+        }
+        onClickDelete={(id: number) => {
+          dispatch({ type: "delete_todo", id });
+        }}
       />
-      <div>
-        <button className="btn full-width" onClick={onClickAdd}>
-          Add
-        </button>
-      </div>
+      <form
+        className="todo-add"
+        onSubmit={(e) => {
+          e.preventDefault();
+          dispatch({
+            type: "add_todo",
+            id: Math.random(),
+            content: newContent,
+          });
+          setNewContent("");
+        }}
+      >
+        <input
+          value={newContent}
+          onChange={(e) => setNewContent(e.target.value)}
+          placeholder="Type to add new todo"
+        />
+      </form>
     </div>
   );
 };
