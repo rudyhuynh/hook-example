@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { RefObject, memo } from "react";
 import type { TodosType } from "./typedefs";
 import { TodoItem } from "./TodoItem";
 
@@ -6,12 +6,13 @@ type TodoListProps = {
   todos: TodosType;
   onClickDoneUndone: Function;
   onClickDelete: Function;
+  ulRef: RefObject<HTMLUListElement>;
 };
-let e: TodosType = [];
+
 export const TodoList = memo((props: TodoListProps) => {
-  const { todos = e, onClickDoneUndone, onClickDelete } = props;
+  const { todos, onClickDoneUndone, onClickDelete, ulRef } = props;
   return (
-    <ul className="collection todo-list">
+    <ul ref={ulRef} className="collection todo-list">
       {todos.map((todo) => {
         return (
           <TodoItem

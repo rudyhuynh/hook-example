@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { TodoFilter } from "./TodoFilter";
 import { TodoList } from "./TodoList";
 import { useTodos } from "./useTodos";
@@ -22,11 +22,23 @@ export const TodoListApp = () => {
 
   const filteredTodo = filterTodos(todos, filter);
 
+  const ulRef = useRef<HTMLUListElement>(null);
+  const shouldScrollRef = useRef(false);
+
+  useEffect(() => {
+    if (shouldScrollRef.current) {
+      const ulElement = ulRef.current!;
+      ulElement.scrollTop = ulElement.scrollHeight;
+      shouldScrollRef.current = false;
+    }
+  });
+
   return (
     <div className="todo-list-app">
       <h1>Todo List</h1>
       <TodoFilter filter={filter} onClickFilter={setFilter} />
       <TodoList
+        ulRef={ulRef}
         todos={filteredTodo}
         onClickDoneUndone={(id: number) =>
           dispatch({ type: "set_done_undone", id })
@@ -45,6 +57,8 @@ export const TodoListApp = () => {
             content: newContent,
           });
           setNewContent("");
+
+          shouldScrollRef.current = true;
         }}
       >
         <input
