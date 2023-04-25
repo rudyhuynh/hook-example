@@ -9,6 +9,7 @@ let i = 0;
 
 export const TodoListApp = () => {
   const [todos, setTodos] = useState<TodosType>([]);
+
   const [filter, setFilter] = useState("all");
 
   const onClickAdd = () => {
@@ -40,9 +41,9 @@ export const TodoListApp = () => {
   };
 
   const filteredTodo = todos.filter((todo) => {
-    if (filter === "all") return true;
     if (filter === "done") return todo.isDone;
     if (filter === "undone") return !todo.isDone;
+    return true;
   });
 
   return (
