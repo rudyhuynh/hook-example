@@ -1,35 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TodoFilter } from "./TodoFilter";
 import type { TodosType } from "./typedefs";
 import { TodoList } from "./TodoList";
-
+import moment from "moment";
+import * as TodoServices from "../service/TodoService";
 import "./TodoApp.css";
 
-let i = 0;
+type TodoListAppPropsType = {
+  dateFormatString: string;
+};
 
-export const TodoListApp = () => {
+export const TodoListApp = ({ dateFormatString }: TodoListAppPropsType) => {
   const [todos, setTodos] = useState<TodosType>([]);
-
   const [filter, setFilter] = useState("all");
 
+  const transformTodos = (todos: TodosType) => {
+    return todos.map((todo) => {
+      return {
+        ...todo,
+        doneAt: moment(todo.doneAt).format(dateFormatString),
+      };
+    });
+  };
+
+  useEffect(() => {
+    let ignore = false;
+    async function fetchTodos() {
+      const todos = await TodoServices.fetchTodos(filter);
+      const transformedTodos = transformTodos(todos);
+      if (!ignore) setTodos(transformedTodos);
+    }
+    fetchTodos();
+
+    return () => {
+      ignore = true;
+    };
+  }, [filter]);
+
   const onClickAdd = () => {
-    setTodos([
-      ...todos,
-      {
-        id: Math.random(),
-        content: "New Todo " + i++,
-        isDone: false,
-      },
-    ]);
+    // setTodos([
+    //   ...todos,
+    //   {
+    //     id: Math.random(),
+    //     content: "New Todo " + i++,
+    //     isDone: false,
+    //   },
+    // ]);
   };
 
   const onClickDoneUndone = (id: number) => {
-    setTodos(
-      todos.map((todo) => ({
-        ...todo,
-        isDone: todo.id === id ? !todo.isDone : todo.isDone,
-      }))
-    );
+    // setTodos(
+    //   todos.map((todo) => ({
+    //     ...todo,
+    //     isDone: todo.id === id ? !todo.isDone : todo.isDone,
+    //   }))
+    // );
   };
 
   const onClickDelete = (id: number) => {
