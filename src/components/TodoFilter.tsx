@@ -1,3 +1,12 @@
+import { slowHandleFilterLogic } from "../utils/slowLogic";
+import { FilterOptions } from "./typedefs";
+
+const filterOptions: FilterOptions = [
+  { label: "All", value: "all" },
+  { label: "Done", value: "done" },
+  { label: "Undone", value: "undone" },
+];
+
 type TodoFilterPropsType = {
   filter: string;
   onClickFilter: Function;
@@ -5,29 +14,26 @@ type TodoFilterPropsType = {
 
 export const TodoFilter = (props: TodoFilterPropsType) => {
   const { filter, onClickFilter } = props;
+
+  const handledFilterOptions = slowHandleFilterLogic(filterOptions);
+
   return (
     <div className="toolbox">
       <div>
-        <a
-          className={filter == "all" ? "active" : ""}
-          onClick={() => onClickFilter("all")}
-        >
-          All
-        </a>
-        &nbsp;
-        <a
-          className={filter == "done" ? "active" : ""}
-          onClick={() => onClickFilter("done")}
-        >
-          Done
-        </a>
-        &nbsp;
-        <a
-          className={filter == "undone" ? "active" : ""}
-          onClick={() => onClickFilter("undone")}
-        >
-          Undone
-        </a>
+        {handledFilterOptions.map(({ label, value }) => {
+          return (
+            <span key={value}>
+              <button
+                className={
+                  "anchor-button " + (filter === value ? "active" : "")
+                }
+                onClick={() => onClickFilter(value)}
+              >
+                {label}
+              </button>
+            </span>
+          );
+        })}
       </div>
     </div>
   );

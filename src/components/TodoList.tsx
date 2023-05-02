@@ -1,5 +1,5 @@
 import { memo } from "react";
-import type { TodosType } from "./typedefs";
+import type { FilterOption, TodosType } from "./typedefs";
 import { TodoItem } from "./TodoItem";
 import { slowLogic } from "../utils/slowLogic";
 
@@ -9,7 +9,7 @@ type TodoListProps = {
   onClickDelete: Function;
 };
 let e: TodosType = [];
-export const TodoList = memo((props: TodoListProps) => {
+export const TodoList = (props: TodoListProps) => {
   const { todos = e, onClickDoneUndone, onClickDelete } = props;
   return (
     <ul className="collection todo-list">
@@ -25,4 +25,4 @@ export const TodoList = memo((props: TodoListProps) => {
       })}
     </ul>
   );
-});
+};

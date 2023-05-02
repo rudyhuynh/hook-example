@@ -55,3 +55,18 @@ h1 {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.anchor-button {
+  text-decoration: none;
+  color: #039be5;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent !important;
+  border: none;
+  cursor: pointer;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.anchor-button.active {
+  text-decoration: underline;
+}
