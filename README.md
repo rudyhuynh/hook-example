@@ -1,6 +1,6 @@
 # Hook Example
 
-## Your machine have to installed
+## Your machine have to install:
 
 - Git: https://git-scm.com/
 - NodeJS: https://nodejs.org/
