@@ -10,7 +10,7 @@
 1. CLone the repo
 
 ```
-git https://github.com/rudyhuynh/hook-example.git
+git clone https://github.com/rudyhuynh/hook-example.git
 ```
 
 2. Run at root: `npm install`
