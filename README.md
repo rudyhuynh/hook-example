@@ -7,7 +7,7 @@
 
 ## Getting Started
 
-1. CLone the repo
+1. Clone the repo
 
 ```
 git clone https://github.com/rudyhuynh/hook-example.git
